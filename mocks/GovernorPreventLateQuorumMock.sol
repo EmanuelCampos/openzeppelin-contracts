@@ -53,9 +53,8 @@ contract GovernorPreventLateQuorumMock is
         uint256 proposalId,
         address account,
         uint8 support,
-        string memory reason,
-        bytes memory params
+        string memory reason
     ) internal virtual override(Governor, GovernorPreventLateQuorum) returns (uint256) {
-        return super._castVote(proposalId, account, support, reason, params);
+        return super._castVote(proposalId, account, support, reason);
     }
 }

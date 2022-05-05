@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.6.0) (governance/extensions/GovernorCountingSimple.sol)
+// OpenZeppelin Contracts v4.4.1 (governance/extensions/GovernorCountingSimple.sol)
 
 pragma solidity ^0.8.0;
 
@@ -86,8 +86,7 @@ abstract contract GovernorCountingSimple is Governor {
         uint256 proposalId,
         address account,
         uint8 support,
-        uint256 weight,
-        bytes memory // params
+        uint256 weight
     ) internal virtual override {
         ProposalVote storage proposalvote = _proposalVotes[proposalId];
 
