@@ -77,7 +77,7 @@ contract VestingWallet is Context {
     /**
      * @dev Amount of token already released
      */
-    function released(address token) public view virtual returns (uint256) {
+    function releasedERC20(address token) public view virtual returns (uint256) {
         return _erc20Released[token];
     }
 
@@ -98,8 +98,8 @@ contract VestingWallet is Context {
      *
      * Emits a {TokensReleased} event.
      */
-    function release(address token) public virtual {
-        uint256 releasable = vestedAmount(token, uint64(block.timestamp)) - released(token);
+    function releaseERC20(address token) public virtual {
+        uint256 releasable = vestedAmountERC20(token, uint64(block.timestamp)) - releasedERC20(token);
         _erc20Released[token] += releasable;
         emit ERC20Released(token, releasable);
         SafeERC20.safeTransfer(IERC20(token), beneficiary(), releasable);
@@ -115,8 +115,8 @@ contract VestingWallet is Context {
     /**
      * @dev Calculates the amount of tokens that has already vested. Default implementation is a linear vesting curve.
      */
-    function vestedAmount(address token, uint64 timestamp) public view virtual returns (uint256) {
-        return _vestingSchedule(IERC20(token).balanceOf(address(this)) + released(token), timestamp);
+    function vestedAmountERC20(address token, uint64 timestamp) public view virtual returns (uint256) {
+        return _vestingSchedule(IERC20(token).balanceOf(address(this)) + releasedERC20(token), timestamp);
     }
 
     /**
